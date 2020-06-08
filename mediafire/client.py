@@ -309,22 +309,19 @@ class MediaFireClient(object):
             parent_node = self.get_resource_by_uri(parent_uri)
             if not isinstance(parent_node, Folder):
                 raise NotAFolderError(parent_uri)
-            parent_key = parent_node['folderkey']
+            parent_key = parent_node.get('folderkey', parent_node.get('folder_key'))
         except ResourceNotFoundError:
             if recursive:
                 result = self.create_folder(parent_uri, recursive=True)
-                parent_key = result['folderkey']
+                parent_key = result if type(result) == str else result.get('folderkey', result.get('folder_key'))
             else:
                 raise
-
         # We specify exact location, so don't allow duplicates
         result = self.api.folder_create(
             folder_name, parent_key=parent_key, action_on_duplicate='skip')
 
-        logger.info("Created folder '%s' [mf:%s]",
-                    result['name'], result['folder_key'])
-
-        return self.get_resource_by_key(result['folder_key'])
+        res = self.get_resource_by_uri(parent_uri + "/" + folder_name )
+        return  res.get('folderkey', res.get('folder_key'))
 
     def delete_folder(self, uri, purge=False):
         """Delete folder.
