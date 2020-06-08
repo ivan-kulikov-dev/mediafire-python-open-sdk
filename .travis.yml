@@ -1,13 +1,12 @@
+os: linux
+dist: bionic
 language: python
 python:
-- '2.7'
-- '3.4'
+  - "3.6"      # current default Python on Travis CI
+  - "3.7"
+  - "3.8"
 install:
-- pip install -r requirements.txt -I
-- pip install -r test-requirements.txt -I
-- pip install . -I
+  - pip install -r requirements.txt -I
+  - pip install -r test-requirements.txt -I
+  - pip install . -I
 script: nosetests -P
-env:
-  global:
-  - secure: eCOGQbvBQ/iCl2a1oyuooMwU710FhFXNLXahEllwZWymWtjvEOD5rF4GPeeLfGl8FSeMW4zBZht4oaVm1s7llU1ThzyBIfZ+Yd7kUMtSArspWjgh72K4Ap48dSqXpRYIVRgpbvz5QpkJYw6Lee8aQ90C4s++413wXzr4feHnXcM=
-  - secure: HGMQ8z3eN9gKFJJ3nvHderuI7mtxVbA9vjcx2yIs+FQ52QO1i0l1JHx3WFMjDtYgnO2EjRwyWQ63ujx0hU81Hj/ykT+7Gw6ZhqfNpjs9xLg8bRfQjhsqZGo9ex/uyeZIY16GO8OMzNUX3A3HG0XUws28zsH90G9e210m+ylkIUY=
