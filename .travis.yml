@@ -9,4 +9,4 @@ install:
   - pip install -r requirements.txt -I
   - pip install -r test-requirements.txt -I
   - pip install . -I
-script: nosetests -P
+#script: nosetests -P
